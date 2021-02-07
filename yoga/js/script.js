@@ -35,10 +35,9 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
-    //Timer
-    let deadline = '2021-02-05T13:21';
     
+    let deadline = '2022-02-05T14:27';
+
     function getTimeRemaining(endtime) {
 
         let t = Date.parse(endtime) - Date.now();
@@ -59,7 +58,7 @@ window.addEventListener('DOMContentLoaded', function() {
         if (seconds < 10) seconds = '0' + seconds;
         if (minutes < 10) minutes = '0' + minutes;
         if (hours < 10) hours = '0' + hours;
-        
+
         return {
             'total': t,
             'hours': hours,
@@ -88,4 +87,46 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     setClock('timer', deadline);
+
+    //Modal
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close'),
+        tabBtn = document.querySelectorAll('.description-btn');
+
+    function showModal(){
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    }
+
+    more.addEventListener('click', function() {
+        showModal.call(this);
+    });
+
+    close.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        if(more.classList.contains('more-splash')) {
+            more.classList.remove('more-splash');
+        }
+        
+        tabBtn.forEach((item) => {
+            if (item.classList.contains('more-splash')) {
+                item.classList.remove('more-splash')
+            }
+        });
+
+        document.body.style.overflow = '';
+    });
+
+    tabContent.forEach( item => {
+        item.addEventListener('click', function(e){
+            let target = e.target;
+
+            if(target.matches('.description-btn')) {
+                showModal.call(target);
+            } 
+        });
+    });
 });
