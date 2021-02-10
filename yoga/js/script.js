@@ -6,14 +6,14 @@ window.addEventListener('DOMContentLoaded', function() {
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
 
-    function hideTabContent(a) {
+    function hideTabContent(a = 1) {
         for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
         }
     }
 
-    hideTabContent(1);
+    hideTabContent();
 
     function showTabContent(b) {
         if (tabContent[b].classList.contains('hide')) {
@@ -55,9 +55,9 @@ window.addEventListener('DOMContentLoaded', function() {
             minutes = Math.floor( (t / 1000 / 60) % 60 ),
             hours = Math.floor( t / (1000 * 60 * 60) );
 
-        if (seconds < 10) seconds = '0' + seconds;
-        if (minutes < 10) minutes = '0' + minutes;
-        if (hours < 10) hours = '0' + hours;
+        if (seconds < 10) seconds = `0${seconds}`;
+        if (minutes < 10) minutes = `0${minutes}`;
+        if (hours < 10) hours = `0${hours}`;
 
         return {
             'total': t,
